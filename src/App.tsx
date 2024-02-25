@@ -1,5 +1,13 @@
+import Header from "./components/Header"
+import Hero from "./components/Hero"
+
 function App() {
-	return <div className=" text-blue-500">hello world</div>
+	return (
+		<>
+			<Header />
+			<Hero />
+		</>
+	)
 }
 
 export default App
