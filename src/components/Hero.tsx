@@ -1,7 +1,26 @@
+import { FormEvent } from "react"
 import Button from "./button"
 import Form from "./Form"
-
-function Hero() {
+import { useState } from "react"
+interface Props {
+	getLinks: (bodyContent: string) => Promise<void>
+}
+function Hero({ getLinks }: Props) {
+	const [validate, setValidate] = useState(false)
+	function submit(e: FormEvent) {
+		e.preventDefault()
+		const form = e.target as HTMLFormElement
+		const input = form[0] as HTMLInputElement
+		if (input.value === "") {
+			setValidate(true)
+			setTimeout(() => {
+				setValidate(false)
+			}, 4000)
+		} else {
+			getLinks(input.value)
+			input.value = ""
+		}
+	}
 	return (
 		<section className="grid grid-cols-2 -md:gap-12 pb-40 -md:grid-cols-1 -md:pt-12">
 			<div className="md:w-[60%] -md:px-8 -md:row-start-2 mx-auto flex flex-col md:justify-center">
@@ -31,7 +50,7 @@ function Hero() {
 					alt="working illustration"
 				/>
 			</div>
-			<div className="w-4/5 md:px-16 px-8 left-1/2 -bottom-16 -translate-x-1/2 rounded-lg md:py-16 py-12 absolute bg-Dark_Violet isolate overflow-clip">
+			<div className="w-4/5 md:px-16 px-8 left-1/2 -bottom-16 -translate-x-1/2 rounded-lg py-8 min-h-40 flex items-center absolute bg-Dark_Violet isolate overflow-clip">
 				<img
 					className="absolute -z-10 left-0 top-0 w-[102%] -md:hidden"
 					src="/images/bg-shorten-desktop.svg"
@@ -42,7 +61,7 @@ function Hero() {
 					src="/images/bg-shorten-mobile.svg"
 					alt="illustration"
 				/>
-				<Form />
+				<Form submit={submit} validate={validate} />
 			</div>
 		</section>
 	)

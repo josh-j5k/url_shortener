@@ -43,6 +43,7 @@ function Header() {
 				</nav>
 				<div className="flex -md:w-full -md:flex-col -md:gap-6 gap-2">
 					<Button
+						type="button"
 						bg_color="bg-transparent"
 						text_color="text-Grayish_Violet -md:text-white font-bold -md:text-lg"
 						hover_bg_color="transparent"
@@ -51,6 +52,7 @@ function Header() {
 						Login
 					</Button>
 					<Button
+						type="button"
 						bg_color="bg-Cyan"
 						text_color="text-white font-bold -md:text-lg"
 						hover_bg_color="hover:bg-Cyan_Hover"
