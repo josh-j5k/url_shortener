@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { MouseEvent } from "react"
 import Button from "./button"
 import Card from "./Card"
 interface TData {
@@ -10,11 +10,16 @@ interface Props {
 	data: TData[]
 }
 function AdvancedStatistics({ data }: Props) {
-	const [copied, setCopied] = useState(false)
-	function copyToCilpboard(url: string) {
-		navigator.clipboard.writeText(url).then(() => {
-			setCopied(true)
-		})
+	function copyToCilpboard(ev: MouseEvent, url: string) {
+		const button = ev.target as HTMLButtonElement
+		button.classList.replace("bg-Cyan", "bg-Very_Dark_Violet")
+		button.classList.replace(
+			"hover:bg-Cyan_Hover",
+			"hover:bg-[hsl(260_30%_18%)]"
+		)
+		button.innerHTML = "copied!"
+
+		navigator.clipboard.writeText(url)
 	}
 	return (
 		<section className="md:px-36 px-8 py-16 pt-32 bg-gray-200">
@@ -33,18 +38,20 @@ function AdvancedStatistics({ data }: Props) {
 							</div>
 							<div className="-md:w-full -md:flex flex-col -md:px-4 -md:pb-3">
 								<Button
-									onClick={() => copyToCilpboard(item.shrtlnk)}
+									onClick={(event) => copyToCilpboard(event, item.shrtlnk)}
 									type="button"
-									bg_color={copied ? " bg-Very_Dark_Violet" : "bg-Cyan"}
+									// bg_color={copied ? " bg-Very_Dark_Violet" : "bg-Cyan"}
+									bg_color="bg-Cyan"
 									text_color="text-white font-bold -md:text-lg py-1.5"
-									hover_bg_color={
-										copied
-											? "hover:bg-[hsl(260_30%_18%)]"
-											: "hover:bg-Cyan_Hover"
-									}
+									// hover_bg_color={
+									// 	copied
+									// 		? "hover:bg-[hsl(260_30%_18%)]"
+									// 		: "hover:bg-Cyan_Hover"
+									// }
+									hover_bg_color="hover:bg-Cyan_Hover"
 									rounded="rounded-lg"
 								>
-									{copied ? "copied!" : "copy"}
+									copy
 								</Button>
 							</div>
 						</div>

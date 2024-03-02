@@ -5,7 +5,7 @@ interface Props {
 	hover_bg_color: string
 	rounded: string
 	type: "submit" | "reset" | "button"
-	onClick?: () => void
+	onClick?: (ev: React.MouseEvent) => void
 }
 
 function Button({
@@ -19,7 +19,7 @@ function Button({
 }: Props) {
 	return (
 		<button
-			onClick={onClick}
+			onClick={(ev: React.MouseEvent) => onClick !== undefined && onClick(ev)}
 			type={type}
 			className={`px-5 py-2 ${bg_color} ${text_color} ${hover_bg_color} ${rounded}`}
 		>
